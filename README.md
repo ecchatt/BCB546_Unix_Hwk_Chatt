@@ -35,13 +35,13 @@ Standard out was too large for meaningful information
 ###To find the number of columns
 	$awk -F "\t" '{print NF; exit}' fang_et_al_genotypes.txt 
 986  
-	$awk -F "\t" '{print NF; exit}' snp_position.txt   
+	$awk -F "\t" '{print NF; exit}' snp_position.txt
 15 (note this matches the output from head)
 
 ###To double check the previous result from awk to make sure the result was not skewed by multiple lines of header information
 	$tail -n +6 fang_et_al_genotypes.txt | awk -F "\t" '{print NF; exit}'  
-986
-	$tail -n +6 snp_position.txt | awk -F "\t" '{print NF; exit}'  
+986  
+	$tail -n +6 snp_position.txt | awk -F "\t" '{print NF; exit}'
 15
 
 ##_Data Processing_

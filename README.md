@@ -70,6 +70,28 @@ For teosinte (Group = ZMPBA, ZMPIL, and ZMPJA in the third column of the `fang_e
 
 A total of 40 files will therefore be produced.
 
+#Remove desired groups from fang_et_al_genotypes.txt
+$grep -E "(ZMPBA|ZMPIL|ZMPJA)" fang_et_al_genotypes.txt > teosinte_groups.txt
+
+#Add header to newly created group of genotypes file
+$head -n 1 fang_et_al_genotypes.txt > header_fang_et_al_genotypes.txt
+#THEN
+$cat fang_header teosinte_groups.txt > teosinte_groups_header.txt 
+
+#Transpose the group of genotypes file
+$awk -f transpose.awk teosinte_groups_header.txt > transposed_teosinte_genotypes.txt
+
+#Remove the first 3 rows from the transposed group genotype file
+$tail -n +4 transposed_teosinte_genotypes.txt > trim_teosinte_genotypes.txt
+
+#Sort the two file by SNP ID
+$sort -k1,1 trim_teosinte_genotypes.txt > sort_teosinte_genotypes.txt
+#or for snp file
+sort -k1,1 snp_position.txt > sort_snp_position.txt
+
+#Remove head and unneeded columns from the snp_position.txt
+tail -n +2 sort_snp_position.txt |cut -f 1,3,4 >trim_sort_snp_position.txt
+
 #To join the sorted files
 $join -t $'\t' -1 1 -2 1 no_head_snp_trim.txt sort_Z.txt > join_Z_3.txt
 
@@ -82,6 +104,8 @@ $sort -k3,3n awk_maize_chr1.txt > sort_maize_chr1.txt
 #To sort in reverse
 $sort -k3,3nr awk_maize_chr1.txt > sortr_maize_chr1.txt
 
+#To replace every occurance of a character within a file
+sed 's/?/-/g' sortr_maize_chr1.txt > sortrs_maize_chr1.txt
 
 
 

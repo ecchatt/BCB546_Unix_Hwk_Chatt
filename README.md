@@ -34,7 +34,7 @@ Standard out was too large for meaningful information
 
 ###To find the number of columns
 	$awk -F "\t" '{print NF; exit}' fang_et_al_genotypes.txt 
-986
+986  
 	$awk -F "\t" '{print NF; exit}' snp_position.txt   
 15 (note this matches the output from head)
 
